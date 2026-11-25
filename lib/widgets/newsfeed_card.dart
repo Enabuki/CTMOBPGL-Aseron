@@ -1,8 +1,8 @@
-
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lagan_mobprog/constant.dart';
-import 'package:lagan_mobprog/widget/custom_text.dart';
-import 'package:material_ui/material_ui.dart';
+
+import '../constant.dart';
+import 'custom_text.dart';
 
 class NewsfeedCard extends StatelessWidget {
   final String userName;
@@ -22,10 +22,10 @@ class NewsfeedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenUtil1Sp = ScreenUtil().setSp(10);
-    final screenUtilWidth = ScreenUtil().setWidth(10);
-    final screenUtilFontUserNameSize = ScreenUtil().setSp(15);
-    final screenUtilIconSize = ScreenUtil().setSp(15);
+    final screenUtil1Sp = 10.sp;
+    final screenUtilWidth = 10.w;
+    final screenUtilFontUserNameSize = 15.sp;
+    final screenUtilIconSize = 15.sp;
 
     return Card(
       margin: EdgeInsets.all(screenUtil1Sp),
@@ -34,11 +34,12 @@ class NewsfeedCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // User information
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.person),
+                const Icon(Icons.person),
                 SizedBox(width: screenUtilWidth),
+
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -47,115 +48,110 @@ class NewsfeedCard extends StatelessWidget {
                       fontSize: screenUtilFontUserNameSize,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                    ), // CustomText
+                    ),
+
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomText(
                           text: date,
-                          fontSize: ScreenUtil().setSp(12),
+                          fontSize: 12.sp,
                           color: Colors.grey,
-                        ), // CustomText
-                        SizedBox(width: ScreenUtil().setWidth(3)),
+                        ),
+                        SizedBox(width: 3.w),
+
                         Icon(
                           Icons.public,
                           color: Colors.grey,
                           size: screenUtilIconSize,
-                        ), // Icon
+                        ),
                       ],
-                    ), // Row
+                    ),
                   ],
-                ), // Column
-                Spacer(),
-                Icon(Icons.more_horiz),
+                ),
+
+                const Spacer(),
+                const Icon(Icons.more_horiz),
               ],
-            ), // Row
+            ),
 
-            SizedBox(height: ScreenUtil().setHeight(5)),
+            SizedBox(height: 5.h),
 
-            // post Content
-            CustomText(
-              text: postContent,
-              fontSize: ScreenUtil().setSp(12),
-              color: Colors.black,
-            ), // CustomText
+            // Post content
+            CustomText(text: postContent, fontSize: 12.sp, color: Colors.black),
 
-            SizedBox(height: ScreenUtil().setHeight(5)),
+            SizedBox(height: 5.h),
 
-            hasImage == true
-                ? const Image(
-                    image: AssetImage('assets/images/iron_man.jpg'),
-                  )
-                : SizedBox.shrink(),
+            // Post image
+            if (hasImage == true)
+              Image.asset(
+                'assets/images/iron_man.jpg',
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
 
+            // Like, Comment, Share
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton.icon(
-                  onPressed: () {
-                    // print('Like button pressed');
-                  },
-                  icon: Icon(Icons.thumb_up, color: fbPrimary),
+                  onPressed: () {},
+                  icon: const Icon(Icons.thumb_up, color: fbPrimary),
                   label: CustomText(
-                    text: numOfLikes.toString(),
-                    fontSize: ScreenUtil().setSp(12),
+                    text: '${numOfLikes ?? 0}',
+                    fontSize: 12.sp,
                     color: fbDarkPrimary,
-                  ), // CustomText
-                ), // TextButton.icon
+                  ),
+                ),
 
                 TextButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.comment, color: fbDarkPrimary),
+                  icon: const Icon(Icons.comment, color: fbDarkPrimary),
                   label: CustomText(
                     text: 'Comment',
-                    fontSize: ScreenUtil().setSp(12),
+                    fontSize: 12.sp,
                     color: fbDarkPrimary,
-                  ), // CustomText
-                ), // TextButton.icon
+                  ),
+                ),
 
                 TextButton.icon(
                   onPressed: () {},
-                  icon: Icon(Icons.redo, color: fbDarkPrimary),
+                  icon: const Icon(Icons.redo, color: fbDarkPrimary),
                   label: CustomText(
                     text: 'Share',
-                    fontSize: ScreenUtil().setSp(12),
+                    fontSize: 12.sp,
                     color: fbDarkPrimary,
-                  ), // CustomText
-                ), // TextButton.icon
+                  ),
+                ),
               ],
-            ), // Row
+            ),
 
+            // Comment input
             Row(
               children: [
-                Icon(Icons.person),
-                SizedBox(width: ScreenUtil().setWidth(10)),
-                Container(
-                  padding: EdgeInsets.fromLTRB(
-                    ScreenUtil().setWidth(10),
-                    0,
-                    0,
-                    0,
-                  ), // EdgeInsets.fromLTRB
-                  alignment: Alignment.centerLeft,
-                  height: ScreenUtil().setHeight(25),
-                  width: ScreenUtil().setWidth(330),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(ScreenUtil().setSp(10)),
-                    ), // BorderRadius.all
-                  ), // BoxDecoration
-                  child: CustomText(
-                    text: 'Write a comment...',
-                    fontSize: ScreenUtil().setSp(11),
-                    color: Colors.grey,
-                  ), // CustomText
-                ), // Container
+                const Icon(Icons.person),
+                SizedBox(width: 10.w),
+
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(left: 10.w),
+                    alignment: Alignment.centerLeft,
+                    height: 25.h,
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.all(Radius.circular(10.r)),
+                    ),
+                    child: CustomText(
+                      text: 'Write a comment...',
+                      fontSize: 11.sp,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
               ],
-            ), // Row
+            ),
           ],
-        ), // Column
-      ), // Padding
-    ); // Card
+        ),
+      ),
+    );
   }
 }
