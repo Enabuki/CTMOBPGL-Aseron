@@ -10,14 +10,18 @@ class NewsfeedCard extends StatelessWidget {
   final String date;
   final int? numOfLikes;
   final bool? hasImage;
+  final String avatarImage;
+  final String? postImage;
 
   const NewsfeedCard({
     super.key,
     required this.userName,
     required this.postContent,
     required this.date,
+    required this.avatarImage,
     this.numOfLikes,
     this.hasImage,
+    this.postImage,
   });
 
   @override
@@ -37,7 +41,10 @@ class NewsfeedCard extends StatelessWidget {
             // User information
             Row(
               children: [
-                const Icon(Icons.person),
+                CircleAvatar(
+                  radius: 20.r,
+                  backgroundImage: AssetImage(avatarImage),
+                ),
                 SizedBox(width: screenUtilWidth),
 
                 Column(
@@ -49,7 +56,6 @@ class NewsfeedCard extends StatelessWidget {
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
-
                     Row(
                       children: [
                         CustomText(
@@ -58,7 +64,6 @@ class NewsfeedCard extends StatelessWidget {
                           color: Colors.grey,
                         ),
                         SizedBox(width: 3.w),
-
                         Icon(
                           Icons.public,
                           color: Colors.grey,
@@ -81,23 +86,41 @@ class NewsfeedCard extends StatelessWidget {
 
             SizedBox(height: 5.h),
 
-            // Post image
-            if (hasImage == true)
-              Image.asset(
-                'assets/images/iron_man.jpg',
-                width: double.infinity,
-                fit: BoxFit.cover,
+            // Dynamic post image
+            if (hasImage == true && postImage != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(5.r),
+                child: Image.asset(
+                  postImage!,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
 
-            // Like, Comment, Share
+            // Number of likes
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.h),
+              child: CustomText(
+                text: '${numOfLikes ?? 0} Likes',
+                fontSize: 12.sp,
+                color: Colors.grey,
+              ),
+            ),
+
+            const Divider(height: 1),
+
+            // Like, Comment, Share buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.thumb_up, color: fbPrimary),
+                  icon: const Icon(
+                    Icons.thumb_up_outlined,
+                    color: fbDarkPrimary,
+                  ),
                   label: CustomText(
-                    text: '${numOfLikes ?? 0}',
+                    text: 'Like',
                     fontSize: 12.sp,
                     color: fbDarkPrimary,
                   ),
@@ -105,7 +128,10 @@ class NewsfeedCard extends StatelessWidget {
 
                 TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.comment, color: fbDarkPrimary),
+                  icon: const Icon(
+                    Icons.comment_outlined,
+                    color: fbDarkPrimary,
+                  ),
                   label: CustomText(
                     text: 'Comment',
                     fontSize: 12.sp,
@@ -115,7 +141,7 @@ class NewsfeedCard extends StatelessWidget {
 
                 TextButton.icon(
                   onPressed: () {},
-                  icon: const Icon(Icons.redo, color: fbDarkPrimary),
+                  icon: const Icon(Icons.share_outlined, color: fbDarkPrimary),
                   label: CustomText(
                     text: 'Share',
                     fontSize: 12.sp,
@@ -125,12 +151,16 @@ class NewsfeedCard extends StatelessWidget {
               ],
             ),
 
+            const Divider(height: 1),
+
             // Comment input
             Row(
               children: [
-                const Icon(Icons.person),
+                CircleAvatar(
+                  radius: 15.r,
+                  backgroundImage: AssetImage(avatarImage),
+                ),
                 SizedBox(width: 10.w),
-
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.only(left: 10.w),

@@ -1,30 +1,24 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:aseron_mobileprog/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Facebook replication app smoke test', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MainApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Check Facebook AppBar
+    expect(find.text('Facebook'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Check Newsfeed posts
+    expect(find.text('Tony Stark'), findsOneWidget);
+    expect(find.text('Steve Rogers'), findsOneWidget);
+    expect(find.text('Peter Parker'), findsOneWidget);
+    expect(find.text('Natasha Romanoff'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Check bottom navigation
+    expect(find.byIcon(Icons.home), findsOneWidget);
+    expect(find.byIcon(Icons.notifications), findsOneWidget);
   });
 }

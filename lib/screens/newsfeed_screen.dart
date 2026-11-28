@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../widgets/newsfeed_card.dart';
 
@@ -18,6 +17,8 @@ class NewsfeedScreen extends StatelessWidget {
             date: '2 hrs ago',
             numOfLikes: 120,
             hasImage: true,
+            avatarImage: 'assets/images/tony_avatar.jpg',
+            postImage: 'assets/images/iron_man.jpg',
           ),
 
           // Second post
@@ -27,6 +28,7 @@ class NewsfeedScreen extends StatelessWidget {
             date: '4 hrs ago',
             numOfLikes: 85,
             hasImage: false,
+            avatarImage: 'assets/images/steve_avatar.jpg',
           ),
 
           // Third post
@@ -36,6 +38,8 @@ class NewsfeedScreen extends StatelessWidget {
             date: '5 hrs ago',
             numOfLikes: 45,
             hasImage: true,
+            avatarImage: 'assets/images/peter_avatar.jpg',
+            postImage: 'assets/images/peter_parker.jpg',
           ),
 
           // Fourth post
@@ -45,6 +49,7 @@ class NewsfeedScreen extends StatelessWidget {
             date: '1 day ago',
             numOfLikes: 200,
             hasImage: false,
+            avatarImage: 'assets/images/natasha_avatar.jpg',
           ),
         ],
       ),
