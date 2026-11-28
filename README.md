@@ -1,6 +1,6 @@
 # aseron_mobileprog
 
-A new Flutter project.
+I integrated the Image widget in newsfeed_card.dart by using Flutter's Image.asset() to display pictures in the newsfeed posts. I also added the hasImage and postImage properties so that each post can have its own image or none at all. I used an if condition to check if the post has an image and if an image path is available. If both conditions are met, the picture will be displayed, but if not, the image section will be hidden. Through this, the newsfeed can show posts with pictures and text-only posts without changing the overall layout of the application.
 
 ## Getting Started
 
